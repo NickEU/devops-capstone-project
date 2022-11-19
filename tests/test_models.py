@@ -6,7 +6,7 @@ import logging
 import unittest
 import os
 from service import app
-from service.models import Account, DataValidationError, db
+from service.models import Account, DataValidationError, db, PersistentBase
 from tests.factories import AccountFactory
 
 DATABASE_URI = os.getenv(
@@ -175,3 +175,16 @@ class TestAccount(unittest.TestCase):
         """It should not Deserialize an account with a TypeError"""
         account = Account()
         self.assertRaises(DataValidationError, account.deserialize, [])
+
+    def test_repr_of_account(self):
+        """String representation of account should be shown correctly"""
+        account = Account()
+        account.id = 5
+        account.name = "John"
+        self.assertEquals(f"<Account {account.name} id=[{account.id}]>", f"{account}")
+
+
+    def test_persistent_base_created_correctly(self):
+        """Persistent Base object should be created with id set to None"""
+        base = PersistentBase()
+        self.assertEquals(None, base.id)
