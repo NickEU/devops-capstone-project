@@ -133,7 +133,7 @@ class TestAccountService(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         read_account = response.get_json()
-        self.assertEqual(read_account["name"], account.name)      
+        self.assertEqual(read_account["name"], account.name)
 
     def test_account_not_found(self):
         """It should not Read an Account that is not found"""
@@ -149,19 +149,19 @@ class TestAccountService(TestCase):
         self.assertEqual(status.HTTP_200_OK, response.status_code)
         data = response.get_json()
         self.assertEqual(num_of_created_accounts, len(data))
-    
+
     def test_method_not_allowed(self):
         """It should not allow an illegal method call"""
         response = self.client.delete(BASE_URL)
         self.assertEqual(status.HTTP_405_METHOD_NOT_ALLOWED, response.status_code)
-    
+
     def test_update_account(self):
         """It should Update an existing Account"""
         test_account = AccountFactory()
-        response = self.client.post(BASE_URL,json=test_account.serialize()) 
-        self.assertEqual(status.HTTP_201_CREATED, response.status_code)  
+        response = self.client.post(BASE_URL, json=test_account.serialize())
+        self.assertEqual(status.HTTP_201_CREATED, response.status_code)
 
-        new_account = response.get_json()        
+        new_account = response.get_json()
         new_name = "Nick Knock"
         new_account["name"] = new_name
         id = new_account["id"]
