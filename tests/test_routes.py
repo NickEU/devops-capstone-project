@@ -140,3 +140,12 @@ class TestAccountService(TestCase):
         nonexisting_account_id = 55
         response = self.client.get(f"{BASE_URL}/{nonexisting_account_id}")
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_get_account_list(self):
+        """It should Get a list of Accounts"""
+        num_of_created_accounts = 5
+        self._create_accounts(num_of_created_accounts)
+        response = self.client.get(f"{BASE_URL}")
+        self.assertEqual(status.HTTP_200_OK, response.status_code)
+        data = response.get_json()
+        self.assertEqual(num_of_created_accounts, len(data))
