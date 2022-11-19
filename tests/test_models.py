@@ -183,7 +183,6 @@ class TestAccount(unittest.TestCase):
         account.name = "John"
         self.assertEquals(f"<Account {account.name} id=[{account.id}]>", f"{account}")
 
-
     def test_persistent_base_created_correctly(self):
         """Persistent Base object should be created with id set to None"""
         base = PersistentBase()
