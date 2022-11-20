@@ -191,10 +191,10 @@ class TestAccountService(TestCase):
         """It should Delete an Account"""
         resp_del = self.client.delete(f"{BASE_URL}/0")
         self.assertEqual(status.HTTP_404_NOT_FOUND, resp_del.status_code)
-    
+
     ######################################################################
     #  S E C U R I T Y   T E S T   C A S E S
-    ######################################################################    
+    ######################################################################
     def test_security_headers(self):
         """It should return security headers"""
         response = self.client.get('/', environ_overrides=HTTPS_ENVIRON)
